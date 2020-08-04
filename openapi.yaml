@@ -1,0 +1,181 @@
+openapi: 3.0.0
+info:
+  title: Simple Inventory API
+  description: This is a simple API
+  contact:
+    email: you@your-company.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/shidqiaqilnaufal/exercise/1.0.0
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: user
+- name: user2
+paths:
+  /company/v1:
+    post:
+      tags:
+      - user
+      summary: register user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Input
+        "409":
+          description: Conflict
+      security:
+      - BasicAuth: []
+  /company/v1/login:
+    post:
+      tags:
+      - user
+      summary: login user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/login'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/loginsuccess'
+        "400":
+          description: Bad Input
+        "409":
+          description: Conflict
+      security:
+      - BasicAuth: []
+  /product/v1/brands:
+    get:
+      tags:
+      - user
+      summary: login user
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseGetBrand'
+        "409":
+          description: Conflict
+      security:
+      - Bearer: []
+  /productss/v1/ss:
+    get:
+      tags:
+      - user2
+      summary: login user
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseGetBrand'
+        "409":
+          description: Conflict
+      security:
+      - Bearer: []
+components:
+  schemas:
+    Register:
+      type: object
+      properties:
+        username:
+          type: string
+          example: kevinwarsahid1@gmail.com
+        ownerName:
+          type: string
+          example: Dini Indriyani
+        email:
+          type: string
+          example: kevinwarsahid@gmail.com
+        password:
+          type: string
+          example: password
+        companyName:
+          type: string
+          example: PT.Developer
+    login:
+      type: object
+      properties:
+        username:
+          type: string
+          example: kevinwarsahid1@gmail.com
+        ownerName:
+          type: string
+          example: U2FsdGVkX188cAvds3/+34Qa5Rw2BP49Nk2SLQvRuQY=
+    loginsuccess:
+      type: object
+      properties:
+        success:
+          type: boolean
+        code:
+          type: integer
+        message:
+          type: string
+        data:
+          type: object
+      example:
+        success: true
+        code: 200
+        message: Hooray, Login Success, use your token to access other endpoints
+        data:
+          token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGNiOTJjNjM5YjM5NTAwMTBkZGYxOGIiLCJjb21wYW55SWQiOiJhMDFhZWI5Zi1iYjExLTRkZDItOTJmYy1iZTNkOWIxZjlkMGYiLCJ1c2VybmFtZSI6Imtldmlud2Fyc2FoaWRAZ21haWwuY29tIiwiZW1haWwiOiJrZXZpbndhcnNhaGlkQGdtYWlsLmNvbSIsImNvbXBhbnlOYW1lIjoiUFQuIERldmVsb3BlciIsImlzQWN0aXZlIjp0cnVlLCJpc0RlbGV0ZWQiOmZhbHNlLCJjcmVhdGVkQXQiOiIyMDE5LTExLTEzVDA1OjIxOjEwLjQxNVoiLCJpYXQiOjE1NzM3MTc2MzEsImV4cCI6MTU3Mzc2MDgzMSwiYXVkIjoiOTdiMzMxOTMtNDNmZi00ZTU4LTkxMjQtYjNhOWI5ZjcyYzM0IiwiaXNzIjoidGVsa29tZGV2In0.xf_0oKMg4dfrNJ1WKvsVB55BeLGo9xzYcVmiK-WUyW6f_w3yF0XwzFJ9-OaAmTPAoq5CA0Cr0TMdFjtfZVvRybUQZFbpAyuIDd60wbbzJgLKton9Bvv-RFcZBAhrrxsFt9ruH6Po_Se8lkvVBOUfMjI76QKzGFh1qZDDYeA7tCzAejksrYnZl6fL7Y4SF3fMzmUXwLz4hbZi1fGxnBQ2QSMxS8v9uTwWq7IfG3DxXPKz2lcMAlNbvPdPCudAD5wAaMo0fwN_h0C1uAVHqsvH2Rm-6OWzzMksbOWBz85fbVYvEX349S3HZZ8iBeD7RTnfatRaSMwTB9jci3tQQSS0KzudC7jn6-amQmhR_qmlFpUgu8kHJI2d0vmT31MN89vevJPm0yMiKN5bs86MQEaLcERUcDuXDM5kz7qkCcUc8AJ8lNISCWTWDmDMeRAFW37juoRk4aQTRzeUUk79Z_cGD5CiN0OWjbv3JchzQ9Q1V9NMXLLkOS3xEev_NyM75Ee55B4Eu2YicFhtUsU5YFWH0GHh3iPPb07VBxeig3Mz9SirywTulNft9oKKkf8iP8iIm_dEYBMsZG0mqvvjP_TyopMDHooxafNQRLIabWvjkesj2YjE2AYrCOd6uSbEigYjmXFlkdZwe2Yc3PqRBeHM3FBh5M3zl3S2BcLdUGGIYI0
+          expiresIn: 12h
+    responseGetBrand:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/responseGetBrand_data'
+        message:
+          type: string
+        code:
+          type: integer
+      example:
+        success: true
+        data:
+          companyId: ""
+          brandName: Harflex
+          brandId: ""
+          brandImage: ""
+          isDeleted: false
+          createdAt: ""
+        message: Hooray, This is Brand what youre asking for
+        code: 200
+    responseGetBrand_data:
+      type: object
+      properties:
+        companyId:
+          type: string
+        brandId:
+          type: string
+        brandName:
+          type: string
+        isDeleted:
+          type: boolean
+  securitySchemes:
+    Bearer:
+      type: http
+      description: Get token from login in Auth0, and please write token without "bearer"
+        in front of text.
+      scheme: bearer
+      bearerFormat: JWT
+    BasicAuth:
+      type: http
+      scheme: basic
